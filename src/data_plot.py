@@ -7,9 +7,8 @@ def carregar_dados(arquivo):
     return pd.read_csv(arquivo, sep=r"\s+", engine='python')
 
 def configurar_estilo():
-    # Configuração para estilo mais acadêmico
     plt.style.use('seaborn-v0_8-whitegrid')
-    plt.rcParams['figure.figsize'] = [12, 5]  # Formato mais largo que alto
+    plt.rcParams['figure.figsize'] = [15, 5]  # Aumentei a largura da figura
     plt.rcParams['font.size'] = 10
     plt.rcParams['axes.labelsize'] = 10
     plt.rcParams['axes.titlesize'] = 11
@@ -21,8 +20,8 @@ def configurar_estilo():
 def plotar_graficos(dados):
     configurar_estilo()
     
-    # Criar figura com dois subplots lado a lado
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+    # Criar figura com dois subplots lado a lado com mais espaço entre eles
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))  # Aumentei a largura
     
     # Configurações de estilo comuns
     linha_estilo = {
@@ -58,6 +57,10 @@ def plotar_graficos(dados):
     # Configuração dos títulos
     fig.suptitle('Dynamic Programming vs. Greedy', fontsize=11, y=0.98)
     
+    # Rotacionar labels do eixo x para melhor legibilidade
+    ax1.tick_params(axis='x', rotation=45)
+    ax2.tick_params(axis='x', rotation=45)
+    
     # Configuração do primeiro gráfico
     ax1.set_xlabel('n')
     ax1.set_ylabel('Valor total de venda')
@@ -74,8 +77,8 @@ def plotar_graficos(dados):
     ax1.text(-0.1, -0.15, '(a)', transform=ax1.transAxes, fontsize=10)
     ax2.text(-0.1, -0.15, '(b)', transform=ax2.transAxes, fontsize=10)
     
-    # Ajustar layout
-    plt.tight_layout()
+    # Ajustar layout com mais espaço para os rótulos
+    plt.subplots_adjust(bottom=0.2, wspace=0.3)  # Aumentei o espaço inferior e entre os gráficos
     
     # Adicionar subtítulos abaixo dos gráficos
     fig.text(0.25, 0.02, 'Valor total de venda.', ha='center', fontsize=10)

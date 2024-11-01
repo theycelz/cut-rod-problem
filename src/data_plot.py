@@ -33,3 +33,6 @@ def plotar_graficos(dados):
     plt.tight_layout()
     plt.savefig("comparacao_dp_vs_greedy.png", dpi=300)
     plt.show()
+if __name__ == "__main__":
+    dados = carregar_dados("resultados.txt")
+    plotar_graficos(dados)

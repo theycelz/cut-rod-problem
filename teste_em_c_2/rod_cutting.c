@@ -18,9 +18,9 @@ int* gera_precos(int n) {
     if (!precos) return NULL;
 
     precos[0] = 1 + (rand() % 3);
-    int num_jumps = 3 + (rand() % 3);  
-    int jump_positions[5];  
-    
+    int num_jumps = 3 + (rand() % 3);
+    int jump_positions[5];
+
     for (int i = 0; i < num_jumps; i++) {
         jump_positions[i] = (n / (num_jumps + 1)) * (i + 1) + (rand() % (n / (num_jumps + 1)));
     }
@@ -40,7 +40,7 @@ int* gera_precos(int n) {
             precos[i] = precos[i-1] + jump;
         } else {
             int base_increment = 1 + (rand() % 3);
-            double position_factor = (double)i / n;
+            double position_factor = (n > 0) ? (double)i / n : 0; // Verificação para evitar divisão por zero
             int extra_increment = (int)(position_factor * 5);
             precos[i] = precos[i-1] + base_increment + extra_increment;
         }
@@ -50,12 +50,12 @@ int* gera_precos(int n) {
     }
 
     for (int i = n/4; i < n; i += n/4) {
-        int valley_size = 3 + (rand() % 5);  
+        int valley_size = 3 + (rand() % 5);
         for (int j = 0; j < valley_size && (i+j) < n; j++) {
-            double current_density = (double)precos[i+j] / (i+j+1);
-            double target_density = current_density * 0.7;  
+            double current_density = (i + j + 1) != 0 ? (double)precos[i+j] / (i+j+1) : 0.0; // Evita divisão por zero
+            double target_density = current_density * 0.7;
             int new_price = (int)(target_density * (i+j+1));
-            
+
             if (new_price > precos[i+j-1] && new_price <= n) {
                 precos[i+j] = new_price;
             }
@@ -74,14 +74,14 @@ int cut_rod_dp(int* precos, int n) {
     rod[0] = 0;
 
     for (int i = 1; i <= n; i++) {
-        int max_val = precos[i-1];  
+        int max_val = precos[i-1];
         for (int j = 1; j < i; j++) {
             int val = precos[j-1] + rod[i-j];
             if (val > max_val) max_val = val;
         }
         rod[i] = max_val;
     }
-    
+
     int resultado = rod[n];
     free(rod);
     return resultado;
@@ -131,10 +131,10 @@ void testa_dp() {
 void testa_greedy() {
     int precos_teste[] = {1, 5, 8, 9, 10};
     int n_teste = 5;
-    
+
     int resultado_greedy = cut_rod_greedy(precos_teste, n_teste);
     int resultado_dp = cut_rod_dp(precos_teste, n_teste);
-    
+
     printf("Teste n=5:\n");
     printf("Greedy: %d\n", resultado_greedy);
     printf("DP: %d\n", resultado_dp);

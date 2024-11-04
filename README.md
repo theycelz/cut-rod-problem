@@ -56,9 +56,9 @@ O programa gera e salva dois gráficos:
    ```
 2. Instale as dependências:
    ```bash
-   pip install numpy matplotlib tabulate
+   pip install -r requirements.txt
    ```
 3. Execute o script:
       ```bash
-    python cutrod.py
+    python automate.py
    ```

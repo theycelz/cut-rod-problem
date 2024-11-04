@@ -74,7 +74,7 @@ def format_analysis(analysis: Dict) -> str:
 
 def main() -> None:
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    data_dir = os.path.join(script_dir, '..', '..', 'data')
+    data_dir = os.path.join(script_dir, '..', 'data')
     
     results = []
     try:
@@ -88,7 +88,7 @@ def main() -> None:
     analysis = analyze_results(results)
     formatted_analysis = format_analysis(analysis)
     
-    results_dir = os.path.join(script_dir, '..', '..', 'results')
+    results_dir = os.path.join(script_dir, '..', 'results')
     os.makedirs(results_dir, exist_ok=True)
     filepath = os.path.join(results_dir, 'analysis_results.txt')
     

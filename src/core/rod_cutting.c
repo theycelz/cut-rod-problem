@@ -43,7 +43,7 @@ int* gera_precos(int n) {
             precos[i] = precos[i-1] + jump;
         } else {
             int base_increment = 1 + (rand() % 3);
-            double position_factor = (n > 0) ? (double)i / n : 0; // Verificação para evitar divisão por zero
+            double position_factor = (n > 0) ? (double)i / n : 0; 
             int extra_increment = (int)(position_factor * 5);
             precos[i] = precos[i-1] + base_increment + extra_increment;
         }
@@ -55,7 +55,7 @@ int* gera_precos(int n) {
     for (int i = n/4; i < n; i += n/4) {
         int valley_size = 3 + (rand() % 5);
         for (int j = 0; j < valley_size && (i+j) < n; j++) {
-            double current_density = (i + j + 1) != 0 ? (double)precos[i+j] / (i+j+1) : 0.0; // Evita divisão por zero
+            double current_density = (i + j + 1) != 0 ? (double)precos[i+j] / (i+j+1) : 0.0; 
             double target_density = current_density * 0.7;
             int new_price = (int)(target_density * (i+j+1));
 
